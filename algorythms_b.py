@@ -59,3 +59,34 @@ def gnp_random_connected_graph(num_of_nodes: int,
                 node_size=500)
 
     return G
+
+
+def bellman_ford(edges: list) -> list:
+    """
+    Here we made our own interpretation of Bellman-Ford algorithm
+    for directed weighted graphs.
+    :param edges:
+    :return:
+    """
+    pass
+
+
+def floyd_warshall(edges: list) -> list:
+    """
+
+    :param edges:
+    :return:
+    """
+    pass
+
+
+if __name__ == '__main__':
+    import doctest
+
+    num_of_nodes = random.randint(5, 20)
+    completeness = 1
+    G = gnp_random_connected_graph(num_of_nodes, completeness, True, True)
+    edges = [((u, v), G.get_edge_data(u, v)['weight']) for u, v in G.edges()]
+    print()
+
+    print(doctest.testmod())
