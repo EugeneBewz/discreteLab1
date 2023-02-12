@@ -60,7 +60,7 @@ def gnp_random_connected_graph(num_of_nodes: int,
     return G
 
 
-def kruskal_algorithm(edges: list) -> list:
+def kruskal_algorithm(vertices_num: int, edges: list) -> list:
     """
     Here we tried to make Kruskal's algorithm for random
     undirected weighted graphs, where we build a minimum spanning tree (MST)
@@ -72,7 +72,6 @@ def kruskal_algorithm(edges: list) -> list:
     in graph frame.
     """
     pass
-
 
 def prim_algorithm(edges: list) -> list:
     """
@@ -97,6 +96,6 @@ if __name__ == "__main__":
     # draw = True
     G = gnp_random_connected_graph(num_of_nodes, completeness)
     list_of_edges = [((u, v), G.get_edge_data(u, v)['weight']) for u, v in G.edges()]
-    print(kruskal_algorithm(list_of_edges))
+    print(kruskal_algorithm(num_of_nodes, list_of_edges))
 
     print(doctest.testmod())
