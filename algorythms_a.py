@@ -104,16 +104,14 @@ def kruskal(graph: object) -> List[Tuple[int]]:
 
 
 #? Not sure whether it will be done ============================================================
-def prim_algorithm(edges: list) -> list:
+def prim(graph: object) -> List[Tuple[int]]:
     """
     Here we tried to make Prim's algorithm a.k.a Prim-Jarník's algorithm
     for random undirected weighted graphs, where we build a minimum spanning tree (MST)
     for given graphs.
 
-    :param edges: list of tuples, where elem1 is tuple with two integers
-    (graph edge) and elem2 is edge's weight.
-    :return: list of tuples, where each tuple represents an edge presented
-    in graph frame.
+    :param graph: a class with a bunch of useful things
+    :return: a list with edges that make an MST
     """
     pass
 
@@ -121,8 +119,8 @@ def prim_algorithm(edges: list) -> list:
 if __name__ == "__main__":
 
     #* Graph preparations =====================================================================
-    nodes = random.randint(5, 20)
-    complete = 0.2
+    nodes = random.randint(5, 100)
+    complete = 0.5
     G = gnp_random_connected_graph(nodes, complete)
     mstk = tree.minimum_spanning_tree(G, algorithm="kruskal") # built-in algorithm
 
