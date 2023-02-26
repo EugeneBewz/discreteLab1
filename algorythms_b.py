@@ -6,7 +6,7 @@ algorithm and use them on random generated graphs.
 Then we'll compare them to pre-built algorithms and
 calculate effectiveness for both interpretations.
 
-Held by:
+Held by: Yevhenii Bevz / Khrystyna Mysak
 """
 
 import random
@@ -94,6 +94,7 @@ def bellman_ford(edges: list) -> list:
     pass
 
 
+#* Floyd-Warshall's algorithm for random directed graphs ================================================
 def floyd_warshall(graph: object) -> List[list]:
     """
     Here we tried to make our own interpretation of Floyd-Warshall
@@ -144,6 +145,13 @@ if __name__ == '__main__':
         num_of_nodes,
         edges
     )
+
+    # Uncomment lines below, if you want to see what graph is built of
+    # print("Graph nodes: ", graph.set_of_nodes)
+    # print()
+    # print("Graph edges: ", graph.edges)
+    # print()
+    # print("Graph matrix of weight: ", graph.matrix)
 
     # * Check time for pre-built algorithm =========================================================
     NUM_OF_ITERATIONS = 700

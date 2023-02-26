@@ -6,7 +6,7 @@ algorithm and use them on random generated graphs.
 Then we'll compare them to pre-built algorithms and
 calculate effectiveness for both interpretations.
 
-Held by:
+Held by: Yevhenii Bevz / Khrystyna Mysak
 """
 
 import random
