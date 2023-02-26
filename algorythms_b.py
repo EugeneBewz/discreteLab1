@@ -136,7 +136,6 @@ if __name__ == '__main__':
 
     # * Graph preparations =====================================================================
     num_of_nodes = random.randint(5, 20)
-    # num_of_nodes = 5
     completeness = 1
     G = gnp_random_connected_graph(num_of_nodes, completeness, True, True)
     edges = [((u, v), G.get_edge_data(u, v)['weight']) for u, v in G.edges()]
