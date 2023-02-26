@@ -121,7 +121,7 @@ if __name__ == "__main__":
     #* Graph preparations =====================================================================
     nodes = random.randint(5, 20)
     complete = 0.2
-    G = gnp_random_connected_graph(nodes, complete)
+    G = gnp_random_connected_graph(nodes, complete, True, True)
     mstk = tree.minimum_spanning_tree(G, algorithm="kruskal") # built-in algorithm
 
     graph_nodes = nodes
