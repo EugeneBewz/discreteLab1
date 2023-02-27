@@ -96,7 +96,33 @@ def kruskal(graph: object) -> List[Tuple[int]]:
 
 
 #* Prim's algorithm ============================================================
-def prim(graph: object) -> List[Tuple[int]]:
+
+def cost(graph: object, edge):
+    """
+    Function returns the the weight of an edge.
+    """
+    return graph.edges_weight[edge]
+
+def min_prims_edge(graph: object, visited_nodes) -> tuple:
+    """
+    Function looks for valid incident edges to each node in visited nodes,
+    and then returns the minimum edge.
+    """
+    incident_edges=[edge for node in visited_nodes for edge in graph.edges if node in edge]
+    valid_edges=[]
+
+    for edge in incident_edges:
+        if edge[0] not in visited_nodes or edge[1] not in visited_nodes:
+            valid_edges.append(edge)
+
+    min_edge = valid_edges[0]
+    for edge in valid_edges:
+        if cost(graph, edge) < cost(graph, min_edge):
+            min_edge = edge
+
+    return min_edge
+
+def prim(graph: object) -> List[int, Tuple[int]]:
     """
     Here we tried to make Prim's algorithm a.k.a Prim-Jarník's algorithm
     for random undirected weighted graphs, where we build a minimum spanning tree (MST)
@@ -106,7 +132,17 @@ def prim(graph: object) -> List[Tuple[int]]:
     :return: list of tuples, where each tuple represents an edge presented
     in graph frame.
     """
-    pass
+    visited_nodes = {0}
+    minimum_spanning_tree = []
+
+    while len(set(visited_nodes)) != len(set(graph.set_of_nodes)):
+        edge = min_prims_edge(graph, visited_nodes)
+        visited_nodes.add(edge[0])
+        visited_nodes.add(edge[1])
+        minimum_spanning_tree.append(edge)
+    total_cost = sum(cost(graph, edge) for edge in minimum_spanning_tree)
+
+    return total_cost, minimum_spanning_tree
 
 
 if __name__ == "__main__":
