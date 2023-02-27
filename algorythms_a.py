@@ -6,8 +6,10 @@ algorithm and use them on random generated graphs.
 Then we'll compare them to pre-built algorithms and
 calculate effectiveness for both interpretations.
 
-Held by:
+Held by: Yevhenii Bevz / Khrystyna Mysak
 """
+
+
 import random
 import networkx as nx
 import matplotlib.pyplot as plt
@@ -87,7 +89,7 @@ def kruskal(graph: object) -> List[Tuple[int]]:
     undirected weighted graphs, where we build a minimum spanning tree (MST)
     for given graphs.
 
-    :param edges: list of tuples, where elem1 is tuple with two integers
+    :param graph: list of tuples, where elem1 is tuple with two integers
     (graph edge) and elem2 is edge's weight.
     :return: list of tuples, where each tuple represents an edge presented
     in graph frame.
@@ -122,14 +124,15 @@ def min_prims_edge(graph: object, visited_nodes) -> tuple:
 
     return min_edge
 
-def prim(graph: object) -> List[int, Tuple[int]]:
+
+def prim(graph: object) -> str:
     """
     Here we tried to make Prim's algorithm a.k.a Prim-Jarník's algorithm
     for random undirected weighted graphs, where we build a minimum spanning tree (MST)
     for given graphs.
 
     :param graph: class object with a bunch of useful things.
-    :return: list of tuples, where each tuple represents an edge presented
+    :return: text with minimum path weight and list of tuples, where each tuple represents an edge presented
     in graph frame.
     """
     visited_nodes = {0}
@@ -142,7 +145,7 @@ def prim(graph: object) -> List[int, Tuple[int]]:
         minimum_spanning_tree.append(edge)
     total_cost = sum(cost(graph, edge) for edge in minimum_spanning_tree)
 
-    return total_cost, minimum_spanning_tree
+    return f"Total cost: {total_cost}, MST: {minimum_spanning_tree}"
 
 
 if __name__ == "__main__":
