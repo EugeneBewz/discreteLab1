@@ -9,20 +9,19 @@ calculate effectiveness for both interpretations.
 Held by: Yevhenii Bevz / Khrystyna Mysak
 """
 
-import random
 
+import random
 import networkx as nx
 import matplotlib.pyplot as plt
 from itertools import combinations, groupby
 from typing import List, Tuple
 from networkx.algorithms import tree
-
 import time
 from tqdm import tqdm
 
 
 #* Making a graph class to keep all useful things in it ================================================================
-class Graph(object): # <- General graph containing every single node and edge
+class Graph: # <- General graph containing every single node and edge
     def __init__(self, nodes, edges, edges_weight, sorted_weight):
         self.set_of_nodes = {x for x in range(nodes)}
         self.edges = edges
@@ -104,17 +103,55 @@ def kruskal(graph: object) -> List[Tuple[int]]:
     return kruskal_list
 
 
-#* Prim's algorythm ====================================================================================================
-def prim(graph: object) -> List[Tuple[int]]:
+#* Prim's algorithm ====================================================================================================
+
+def cost(graph: object, edge):
+    """
+    Function returns the the weight of an edge.
+    """
+    return graph.edges_weight[edge]
+
+def min_prims_edge(graph: object, visited_nodes) -> tuple:
+    """
+    Function looks for valid incident edges to each node in visited nodes,
+    and then returns the minimum edge.
+    """
+    incident_edges=[edge for node in visited_nodes for edge in graph.edges if node in edge]
+    valid_edges=[]
+
+    for edge in incident_edges:
+        if edge[0] not in visited_nodes or edge[1] not in visited_nodes:
+            valid_edges.append(edge)
+
+    min_edge = valid_edges[0]
+    for edge in valid_edges:
+        if cost(graph, edge) < cost(graph, min_edge):
+            min_edge = edge
+
+    return min_edge
+
+
+def prim(graph: object) -> str:
     """
     Here we tried to make Prim's algorithm a.k.a Prim-Jarník's algorithm
     for random undirected weighted graphs, where we build a minimum spanning tree (MST)
     for given graphs.
 
-    :param graph: a class with a bunch of useful things
-    :return: a list with edges that make an MST
+    :param graph: class object with a bunch of useful things.
+    :return: text with minimum path weight and list of tuples, where each tuple represents an edge presented
+    in graph frame.
     """
-    pass
+    visited_nodes = {0}
+    minimum_spanning_tree = []
+
+    while len(set(visited_nodes)) != len(set(graph.set_of_nodes)):
+        edge = min_prims_edge(graph, visited_nodes)
+        visited_nodes.add(edge[0])
+        visited_nodes.add(edge[1])
+        minimum_spanning_tree.append(edge)
+    total_cost = sum(cost(graph, edge) for edge in minimum_spanning_tree)
+
+    return f"Total cost: {total_cost}, MST: {minimum_spanning_tree}"
 
 
 #* Calculate time ======================================================================================================
