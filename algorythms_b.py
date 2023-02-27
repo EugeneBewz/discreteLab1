@@ -15,6 +15,8 @@ import matplotlib.pyplot as plt
 from itertools import combinations, groupby
 from typing import List
 from networkx.algorithms import floyd_warshall_predecessor_and_distance
+from networkx.algorithms import bellman_ford_predecessor_and_distance
+
 
 import time
 from tqdm import tqdm
@@ -84,14 +86,45 @@ def gnp_random_connected_graph(num_of_nodes: int,
     return G
 
 
-def bellman_ford(graph: object) -> list:
+#* Bellman-Ford's algorithm for random directed graphs =================================================================
+
+def bellman_ford(graph: object, starting_node: int = 0) -> list or str:
     """
-    Here we made our own interpretation of Bellman-Ford algorithm
-    for directed weighted graphs.
-    :param edges:
-    :return:
+    Here we made our own implementation of Bellman-Ford algorithm
+    for directed weighted graphs. The function also detects negative weight cycles.
+    :param graph: a class with a bunch of useful things
+    :return: a list of shortest distances from src (0 as default) to all other vertices
     """
-    pass
+    # assign all distances to infinity, except source vertex
+    dist = [float("Inf")] * len(graph.set_of_nodes)
+    dist[starting_node] = 0
+    # main iterations (relaxing all edges) to find shortest distances from src to all other vertices
+    for _ in range(len(graph.set_of_nodes) - 1):
+        for edge, weight in graph.edges:
+            # reassigning distance values and parent index of the adjacent vertices of the picked vertex
+            if dist[edge[0]] != float("Inf") and dist[edge[0]] + weight < dist[edge[1]]:
+                dist[edge[1]] = dist[edge[0]] + weight
+    # the last, len(graph.set_of_nodes)-th iteration to check for negative cycles
+    for edge, weight in graph.edges:
+        if dist[edge[0]] != float("Inf") and dist[edge[0]] + weight < dist[edge[1]]:
+            return "Graph contains negative weight cycle!"
+    return dist
+
+
+def built_in_bellman_ford():
+    """
+    This is a built-in Floyd-Warshall algorythm, turned
+    into a function for comfortable usage.
+    :return: list of dictionaries, where key is source point and values
+    are paths to every other node
+    """
+    # pred is a dictionary of predecessors, dist is a dictionary of distances
+    try:
+        pred, dist = bellman_ford_predecessor_and_distance(G, 0)
+        for k, v in dist.items():
+            print(f"Distance to {k}:", v)
+    except:
+        return "Negative cycle detected"
 
 
 #* Floyd-Warshall's algorithm for random directed graphs ===============================================================
