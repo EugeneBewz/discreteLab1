@@ -10,6 +10,7 @@ Held by: Yevhenii Bevz / Khrystyna Mysak
 """
 
 import random
+
 import networkx as nx
 import matplotlib.pyplot as plt
 from itertools import combinations, groupby
@@ -20,7 +21,7 @@ import time
 from tqdm import tqdm
 
 
-#* Making a graph class to keep all useful things in it ==============================================
+#* Making a graph class to keep all useful things in it ================================================================
 class Graph(object): # <- General graph containing every single node and edge
     def __init__(self, nodes, edges, edges_weight, sorted_weight):
         self.set_of_nodes = {x for x in range(nodes)}
@@ -34,7 +35,7 @@ class Graph(object): # <- General graph containing every single node and edge
             self.adjacency_list[destination].append(source)
 
 
-#* Random graph generation ===================================================================
+#* Random graph generation =============================================================================================
 def gnp_random_connected_graph(num_of_nodes: int,
                                completeness: float,
                                directed: bool = False,
@@ -81,7 +82,7 @@ def gnp_random_connected_graph(num_of_nodes: int,
     return G
 
 
-#* Kruskal's algorithm for random undirected graphs ================================================
+#* Kruskal's algorithm for random undirected graphs ====================================================================
 def kruskal(graph: object) -> List[Tuple[int]]:
     """
     Here we tried to make Kruskal's algorithm for random
@@ -103,7 +104,7 @@ def kruskal(graph: object) -> List[Tuple[int]]:
     return kruskal_list
 
 
-#? Not sure whether it will be done ============================================================
+#* Prim's algorythm ====================================================================================================
 def prim(graph: object) -> List[Tuple[int]]:
     """
     Here we tried to make Prim's algorithm a.k.a Prim-Jarník's algorithm
@@ -116,13 +117,47 @@ def prim(graph: object) -> List[Tuple[int]]:
     pass
 
 
+#* Calculate time ======================================================================================================
+def time_diff(func1, func2) -> float:
+    """
+    Calculate difference in time between two algorithms.
+    :param func1: built-in function
+    :param func2: our own function
+    :return: float
+    """
+
+    NUM_OF_ITERATIONS = 1000
+    time_taken_1, time_taken_2 = 0, 0
+    for i in tqdm(range(NUM_OF_ITERATIONS)):
+        # note that we should not measure time of graph creation
+        G = gnp_random_connected_graph(100, 0.4, False)
+
+        # Measure time of built-in algorithm
+        start1 = time.time()
+        func1
+        end1 = time.time()
+
+        time_taken_1 += end1 - start1
+
+        # Measure time of our algorithm
+        start2 = time.time()
+        func2
+        end2 = time.time()
+
+        time_taken_2 += end2 - start2
+
+    return time_taken_2 - time_taken_1
+
+
 if __name__ == "__main__":
 
-    #* Graph preparations =====================================================================
+    #* Graph preparations ==============================================================================================
     nodes = random.randint(5, 20)
     complete = 0.2
-    G = gnp_random_connected_graph(nodes, complete, True, True)
-    mstk = tree.minimum_spanning_tree(G, algorithm="kruskal") # built-in algorithm
+    G = gnp_random_connected_graph(nodes, complete)
+
+    mstk_kruskal = tree.minimum_spanning_tree(G, algorithm="kruskal") # built-in algorithm
+    mstk_prim = tree.minimum_spanning_tree(G, algorithm="prim")  # built-in algorithm
 
     graph_nodes = nodes
     graph_edges = [x for x in G.edges()]
@@ -134,7 +169,7 @@ if __name__ == "__main__":
                   graph_edges_weight,
                   sorted_edges_weight)
 
-    # Uncomment lines below, if you want to see what graph is built of
+    #? Uncomment lines below, if you want to see what graph is built of
     # print("Graph nodes: ", graph.set_of_nodes)
     # print()
     # print("Graph edges: ", graph.edges)
@@ -143,36 +178,22 @@ if __name__ == "__main__":
     # print()
     # print("Graph sorted edges' weight: ", graph.sorted_weight)
 
-    #* Results ==============================================================================
-    print("Pre-built algorithm: ", mstk.edges())
+    #* Results 1 =======================================================================================================
+
+    f1 = tree.minimum_spanning_tree(G, algorithm="kruskal")
+    f2 = kruskal(graph)
+
+    print("Pre-built algorithm: ", mstk_kruskal.edges())
     print("Our algorithm: ", kruskal(graph))
 
-    #* Check time for pre-built algorithm =========================================================
-    NUM_OF_ITERATIONS = 1000
-    time_taken = 0
-    for i in tqdm(range(NUM_OF_ITERATIONS)):
-        # note that we should not measure time of graph creation
-        G = gnp_random_connected_graph(100, 0.4, False)
+    print("Time difference: ", time_diff(f1, f2))
 
-        start = time.time()
-        tree.minimum_spanning_tree(G, algorithm="prim")
-        end = time.time()
+    #* Results 2 =======================================================================================================
 
-        time_taken += end - start
-    pre_result = time_taken / NUM_OF_ITERATIONS
-    print("Pre-built Kruskal's algorithm:", pre_result)
+    f1_2 = tree.minimum_spanning_tree(G, algorithm="prim")
+    f2_2 = kruskal(graph)
 
-    #* Check time for our algorithm ============================================================
-    for i in tqdm(range(NUM_OF_ITERATIONS)):
-        # note that we should not measure time of graph creation
-        G = gnp_random_connected_graph(100, 0.4, False)
+    print("Pre-built algorithm: ", mstk_prim.edges())
+    print("Our algorithm: ", prim(graph))
 
-        start = time.time()
-        kruskal(graph)
-        end = time.time()
-
-        time_taken += end - start
-    result = time_taken / NUM_OF_ITERATIONS
-
-    print("Our Kruskal's algorithm:", result)
-    print("Difference: ", result - pre_result)
+    print("Time difference: ", time_diff(f1_2, f2_2))
