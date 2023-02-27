@@ -87,7 +87,6 @@ def gnp_random_connected_graph(num_of_nodes: int,
 
 
 #* Bellman-Ford's algorithm for random directed graphs =================================================================
-
 def bellman_ford(graph: object, starting_node: int = 0) -> list or str:
     """
     Here we made our own implementation of Bellman-Ford algorithm
@@ -128,7 +127,7 @@ def built_in_bellman_ford():
 
 
 #* Floyd-Warshall's algorithm for random directed graphs ===============================================================
-def floyd_warshall(graph: object) -> List[list]:
+def floyd_warshall(graph: object) -> List[list] or str:
     """
     Here we tried to make our own interpretation of Floyd-Warshall
     algorythm for weighted directed graphs. The algorythm uses
@@ -142,20 +141,24 @@ def floyd_warshall(graph: object) -> List[list]:
         for i in range(len(my_matrix)):
             for j in range(len(my_matrix)):
                 my_matrix[i][j] = min(my_matrix[i][j], my_matrix[i][k] + my_matrix[k][j])
+
+    for x in range(num_of_nodes):
+        if my_matrix[x][x] < 0:
+            return "Negative cycle detected"
+
     return my_matrix
 
 
-def built_in_floyd_warshall(graph: object):
+def built_in_floyd_warshall() -> List[List[dict]] or str:
     """
     This is a built-in Floyd-Warshall algorythm, turned
     into a function for comfortable usage.
-    :param graph: graph object
     :return: list of dictionaries, where key is source point and values
     are paths to every other node
     """
     try:
         the_list = []
-        pred, dist = floyd_warshall_predecessor_and_distance(graph)
+        pred, dist = floyd_warshall_predecessor_and_distance(G)
         for k, v in dist.items():
             # print(f"Distances with {k} source:", dict(v))
             node_list = [{k: dict(v)}]
@@ -236,4 +239,3 @@ if __name__ == '__main__':
     print("Our algorithm: ", f2_2)
 
     print("Time difference: ", time_diff(f1_2, f2_2))
-
