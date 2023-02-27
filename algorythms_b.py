@@ -32,9 +32,10 @@ class Graph(object): # <- General graph containing every single node and edge
             for y in range(num_of_nodes):
                 matrix_row += [float("inf")]
             self.matrix += [matrix_row]
-
         for element in edges:
             self.matrix[element[0][0]][element[0][1]] = element[1]
+        for x in range(num_of_nodes):
+            self.matrix[x][x] = 0
 
 
 #* Random graph generation ===================================================================
@@ -84,17 +85,17 @@ def gnp_random_connected_graph(num_of_nodes: int,
     return G
 
 
-def bellman_ford(edges: list) -> list:
+def bellman_ford(graph: object):
     """
     Here we made our own interpretation of Bellman-Ford algorithm
     for directed weighted graphs.
-    :param edges:
+    :param graph: graph objects with a bunch of useful things
     :return:
     """
     pass
 
 
-def floyd_warshall(graph: object) -> List[list]:
+def floyd_warshall(graph: object) -> List[list] or str:
     """
     Here we tried to make our own interpretation of Floyd-Warshall
     algorythm for weighted directed graphs. The algorythm uses
@@ -108,20 +109,24 @@ def floyd_warshall(graph: object) -> List[list]:
         for i in range(len(my_matrix)):
             for j in range(len(my_matrix)):
                 my_matrix[i][j] = min(my_matrix[i][j], my_matrix[i][k] + my_matrix[k][j])
+
+    for x in range(num_of_nodes):
+        if my_matrix[x][x] < 0:
+            return "Negative cycle detected"
+
     return my_matrix
 
 
-def built_in_floyd_warshall(graph: object):
+def built_in_floyd_warshall() -> List[List[dict]] or str:
     """
     This is a built-in Floyd-Warshall algorythm, turned
     into a function for comfortable usage.
-    :param graph: graph object
     :return: list of dictionaries, where key is source point and values
     are paths to every other node
     """
     try:
         the_list = []
-        pred, dist = floyd_warshall_predecessor_and_distance(graph)
+        pred, dist = floyd_warshall_predecessor_and_distance(G)
         for k, v in dist.items():
             # print(f"Distances with {k} source:", dict(v))
             node_list = [{k: dict(v)}]
@@ -134,8 +139,8 @@ def built_in_floyd_warshall(graph: object):
 if __name__ == '__main__':
 
     # * Graph preparations =====================================================================
-    num_of_nodes = random.randint(5, 20)
-    # num_of_nodes = 5
+    # num_of_nodes = random.randint(5, 20)
+    num_of_nodes = 5
     completeness = 1
     G = gnp_random_connected_graph(num_of_nodes, completeness, True, True)
     edges = [((u, v), G.get_edge_data(u, v)['weight']) for u, v in G.edges()]
@@ -145,13 +150,17 @@ if __name__ == '__main__':
         edges
     )
 
+    # * Results ==============================================================================
+    print("Pre-built algorithm: ", built_in_floyd_warshall())
+    print("Our algorithm: ", floyd_warshall(graph))
+
     # * Check time for pre-built algorithm =========================================================
     NUM_OF_ITERATIONS = 700
     time_taken = 0
     for i in tqdm(range(NUM_OF_ITERATIONS)):
 
         start = time.time()
-        built_in_floyd_warshall(graph)
+        built_in_floyd_warshall()
         end = time.time()
 
         time_taken += end - start
