@@ -104,12 +104,12 @@ def kruskal(graph: object) -> List[Tuple[int]]:
 
 
 #* Prim's algorithm ====================================================================================================
-
 def cost(graph: object, edge):
     """
     Function returns the the weight of an edge.
     """
     return graph.edges_weight[edge]
+
 
 def min_prims_edge(graph: object, visited_nodes) -> tuple:
     """
