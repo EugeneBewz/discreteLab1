@@ -20,7 +20,7 @@ import time
 from tqdm import tqdm
 
 
-#* Making a graph class to keep all useful things in it ==============================================
+#* Making a graph class to keep all useful things in it ================================================================
 class Graph(object): # <- General graph containing every single node and edge
     def __init__(self, nodes, edges):
         self.set_of_nodes = {x for x in range(nodes)}
@@ -37,7 +37,7 @@ class Graph(object): # <- General graph containing every single node and edge
             self.matrix[element[0][0]][element[0][1]] = element[1]
 
 
-#* Random graph generation ===================================================================
+#* Random graph generation =============================================================================================
 def gnp_random_connected_graph(num_of_nodes: int,
                                completeness: int,
                                directed: bool = False,
@@ -84,7 +84,7 @@ def gnp_random_connected_graph(num_of_nodes: int,
     return G
 
 
-def bellman_ford(edges: list) -> list:
+def bellman_ford(graph: object) -> list:
     """
     Here we made our own interpretation of Bellman-Ford algorithm
     for directed weighted graphs.
@@ -94,7 +94,7 @@ def bellman_ford(edges: list) -> list:
     pass
 
 
-#* Floyd-Warshall's algorithm for random directed graphs ================================================
+#* Floyd-Warshall's algorithm for random directed graphs ===============================================================
 def floyd_warshall(graph: object) -> List[list]:
     """
     Here we tried to make our own interpretation of Floyd-Warshall
@@ -132,9 +132,41 @@ def built_in_floyd_warshall(graph: object):
         return "Negative cycle detected"
 
 
+#* Calculate time ======================================================================================================
+def time_diff(func1, func2) -> float:
+    """
+    Calculate difference in time between two algorithms.
+    :param func1: built-in function
+    :param func2: our own function
+    :return: float
+    """
+
+    NUM_OF_ITERATIONS = 1000
+    time_taken_1, time_taken_2 = 0, 0
+    for i in tqdm(range(NUM_OF_ITERATIONS)):
+        # note that we should not measure time of graph creation
+        G = gnp_random_connected_graph(100, 0.4, False)
+
+        # Measure time of built-in algorithm
+        start1 = time.time()
+        func1
+        end1 = time.time()
+
+        time_taken_1 += end1 - start1
+
+        # Measure time of our algorithm
+        start2 = time.time()
+        func2
+        end2 = time.time()
+
+        time_taken_2 += end2 - start2
+
+    return time_taken_2 - time_taken_1
+
+
 if __name__ == '__main__':
 
-    # * Graph preparations =====================================================================
+    # * Graph preparations =============================================================================================
     num_of_nodes = random.randint(5, 20)
     completeness = 1
     G = gnp_random_connected_graph(num_of_nodes, completeness, True, True)
@@ -145,36 +177,30 @@ if __name__ == '__main__':
         edges
     )
 
-    # Uncomment lines below, if you want to see what graph is built of
+    #? Uncomment lines below, if you want to see what graph is built of
     # print("Graph nodes: ", graph.set_of_nodes)
     # print()
     # print("Graph edges: ", graph.edges)
     # print()
     # print("Graph matrix of weight: ", graph.matrix)
 
-    # * Check time for pre-built algorithm =========================================================
-    NUM_OF_ITERATIONS = 700
-    time_taken = 0
-    for i in tqdm(range(NUM_OF_ITERATIONS)):
+    # * Results 1 ======================================================================================================
 
-        start = time.time()
-        built_in_floyd_warshall(graph)
-        end = time.time()
+    f1 = built_in_floyd_warshall()
+    f2 = floyd_warshall(graph)
 
-        time_taken += end - start
-    pre_result = time_taken / NUM_OF_ITERATIONS
-    print("Pre-built Floyd-Warshall's algorithm:", pre_result, '\n')
+    print("Pre-built algorithm: ", f1)
+    print("Our algorithm: ", f2)
 
-    # * Check time for our algorithm ============================================================
-    for i in tqdm(range(NUM_OF_ITERATIONS)):
+    print("Time difference: ", time_diff(f1, f2))
 
-        start = time.time()
-        floyd_warshall(graph)
-        end = time.time()
+    # * Results 2 ======================================================================================================
 
-        time_taken += end - start
-    result = time_taken / NUM_OF_ITERATIONS
+    f1_2 = built_in_bellman_ford()
+    f2_2 = bellman_ford(graph)
 
-    print("Our Floyd-Warshall's algorithm:", result, '\n')
-    print("Difference: ", result - pre_result)
+    print("Pre-built algorithm: ", f1_2)
+    print("Our algorithm: ", f2_2)
+
+    print("Time difference: ", time_diff(f1_2, f2_2))
 
