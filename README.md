@@ -59,8 +59,8 @@ of all edges in order to find shortest distances from source vertex (starting_no
 
 ### Floyd-Warshall's algorithm (Held by: Yevhenii Bevz)
 Floyd-Warshall's algorithm is used to determine the shortest path between any two nodes in a graph. For clearance, the
-algorithm uses matrix of weights, and each iteration tries paths through every node and replaces each matrix cell, if new
-path is shorter than the previous one. Also, the algorythm can detect negative cycle: if there is a negative number in the
+algorithm uses a matrix of weights, and each iteration tries paths through every node and replaces each matrix cell, if new
+path is shorter than the previous one. Also, the algorithm can detect negative cycle: if there is a negative number in the
 main diagonal, then there is a negative cycle in a graph.
 
 ## Task #3
@@ -72,3 +72,9 @@ To sum up, we received a valuable experience of programming algorithms and diggi
 
 Thanks for attention.
 Held by: Eugene Bevz & Khrystyna Mysak
+
+
+
+P.S.
+If you take a look at separate algorithms' branches, you may notice some graph generation tricks in order to prove that the algorithms were handled by
+our hands. We did not merge them into “master” in order to avoid possible conflicts. Anyway, everything necessary is already in “master”.
