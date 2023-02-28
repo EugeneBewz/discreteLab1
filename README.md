@@ -50,6 +50,9 @@ We can divide the code (algorithm) in 3-4 main parts:
 of all edges in order to find shortest distances from source vertex (starting_node) to all other vertices
  3. (2.) The main goal of the previous step is to reassign distance values and parent index of the adjacent vertices of the picked vertex.
  4. The last step is to check whether our result contains negative cycles (if it does, then the vertex ‘labels’ will change on |V|-th iteration)
+ ### The graph of time comparison between implemented and built-in graph.
+ ![Here is the illustration](graph_bellman.jpg)
+
 ### Floyd-Warshall's algorithm (Held by: Yevhenii Bevz)
 Floyd-Warshall's algorithm is used to determine the shortest path between any two nodes in a graph. For clearance, the
 algorithm uses matrix of weights, and each iteration tries paths through every node and replaces each matrix cell, if new
