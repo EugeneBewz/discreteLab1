@@ -225,8 +225,8 @@ if __name__ == '__main__':
     f1 = built_in_floyd_warshall()
     f2 = floyd_warshall(graph)
 
-    print("Pre-built algorithm: ", f1)
-    print("Our algorithm: ", f2)
+    print("Pre-built Floyd-Warshall's algorithm: ", f1)
+    print("Our Floyd-Warshall's algorithm: ", f2)
 
     print("Time difference: ", time_diff(f1, f2))
 
@@ -235,7 +235,7 @@ if __name__ == '__main__':
     f1_2 = built_in_bellman_ford()
     f2_2 = bellman_ford(graph)
 
-    print("Pre-built algorithm: ", f1_2)
-    print("Our algorithm: ", f2_2)
+    print("Pre-built Bellman-Ford's algorithm: ", f1_2)
+    print("Our Bellman-Ford's algorithm: ", f2_2)
 
     print("Time difference: ", time_diff(f1_2, f2_2))

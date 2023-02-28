@@ -163,7 +163,7 @@ def time_diff(func1, func2) -> float:
     :return: float
     """
 
-    NUM_OF_ITERATIONS = 1000
+    NUM_OF_ITERATIONS = 500
     time_taken_1, time_taken_2 = 0, 0
     for i in tqdm(range(NUM_OF_ITERATIONS)):
         # note that we should not measure time of graph creation
@@ -220,8 +220,8 @@ if __name__ == "__main__":
     f1 = tree.minimum_spanning_tree(G, algorithm="kruskal")
     f2 = kruskal(graph)
 
-    print("Pre-built algorithm: ", mstk_kruskal.edges())
-    print("Our algorithm: ", kruskal(graph))
+    print("Pre-built Kruskal's algorithm: ", mstk_kruskal.edges())
+    print("Our Kruskal's algorithm: ", kruskal(graph))
 
     print("Time difference: ", time_diff(f1, f2))
 
@@ -230,7 +230,7 @@ if __name__ == "__main__":
     f1_2 = tree.minimum_spanning_tree(G, algorithm="prim")
     f2_2 = kruskal(graph)
 
-    print("Pre-built algorithm: ", mstk_prim.edges())
-    print("Our algorithm: ", prim(graph))
+    print("Pre-built Prim's algorithm: ", mstk_prim.edges())
+    print("Our Prim's algorithm: ", prim(graph))
 
     print("Time difference: ", time_diff(f1_2, f2_2))
