@@ -66,6 +66,9 @@ main diagonal, then there is a negative cycle in a graph.
 ## Task #3
 ### Decision tree (Under maintenance)
 
+As we can see, we managed to understand the core idea of the algorithms. Time statistics say that although our implementations are not perfect, they can somehow compete with given algorithms.
+The inaccuracy may be caused by lack of programming experience or a bit different way of understanding algorithms. Anyway, the experiments' results clearly state that we were close enough to maintaining good algorithms.
+To sum up, we received a valuable experience of programming algorithms and digging deeper in the very understanding of graphs and matrices.
 
 Thanks for attention.
 Held by: Eugene Bevz & Khrystyna Mysak
