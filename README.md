@@ -22,7 +22,7 @@ built-in algorithms
 Let's take a sneak peak at them.
 
 ## Task #1
-### Kruskal's algorithm (Held by: Yevhenii Bevz)
+### [Kruskal's algorithm (Held by: Yevhenii Bevz)](algorythms_a.py)
 Kruskal's algorithm sorts edges in ascending order and takes edges one by one. At the same time we keep an eye on set of
 used nodes, which helps us to check whether we create a cycle or not. If edge's both nodes are in current set, then we
 create a cycle - so, we have to abandon this particular edge and move on.
@@ -33,7 +33,7 @@ graph based on final edges - you will get a required MST.
 ![Here is the illustration](graph_kruskal.jpg)
 ![Here is the illustration](KruskalPrim2.png)
 
-### Prim's algorithm (Held by: Khrystyna Mysak)
+### [Prim's algorithm (Held by: Khrystyna Mysak](algorythms_a.py)
 Prim’s algorithm was divided into three functions for decomposition and better understanding. 
 
  1. def cost(graph: object, edge) — gets the weight of the desired edge
@@ -49,7 +49,7 @@ weight to mark them as already visited. The cycle repeats up till we have all th
 
 
 ## Task #2
-### Bellman-Ford's algorithm (Held by: Khrystyna Mysak)
+### [Bellman-Ford's algorithm (Held by: Khrystyna Mysak)](algorythms_b.py)
 Bellman-Ford algorithm is an example of dynamic programming, because we constantly change the vertex ‘labels’.
 We can divide the code (algorithm) in 3-4 main parts:
  1. Assigning all distances to infinity, except source vertex (starting_node)
@@ -60,7 +60,7 @@ of all edges in order to find shortest distances from source vertex (starting_no
  ### The graph of time comparison between implemented and built-in algorithm.
  ![Here is the illustration](graph_bellman.jpg)
 
-### Floyd-Warshall's algorithm (Held by: Yevhenii Bevz)
+### [Floyd-Warshall's algorithm (Held by: Yevhenii Bevz)](algorythms_b.py)
 Floyd-Warshall's algorithm is used to determine the shortest path between any two nodes in a graph. For clearance, the
 algorithm uses matrix of weights, and each iteration tries paths through every node and replaces each matrix cell, if new
 path is shorter than the previous one. Also, the algorythm can detect negative cycle: if there is a negative number in the
