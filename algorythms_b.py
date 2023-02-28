@@ -92,7 +92,7 @@ def bellman_ford(graph: object, starting_node: int = 0) -> list:
     :return: a list of shortest distances from src (0 as default) to all other vertices
     """
     # assign all distances to infinity, except source vertex
-    dist = [float("Inf")] * len(graph.set_of_nodes)
+    dist = {node: float('inf') for node in graph.set_of_nodes}
     dist[starting_node] = 0
     # main iterations (relaxing all edges) to find shortest distances from src to all other vertices
     for _ in range(len(graph.set_of_nodes) - 1):
@@ -185,4 +185,46 @@ if __name__ == '__main__':
 
     print("Our Floyd-Warshall's algorithm:", result, '\n')
     print("Difference: ", result - pre_result)
+
+    # * Check time and plot graph for our algorithm AND built-in ============================================================
+    print('Analyzing Algorithms...')
+    completeness = 0.2
+    num_of_nodes = [5, 10, 20, 50, 100, 200, 400]
+    time_taken_built_in = []
+    time_taken_implementation = []
+    NUM_OF_ITERATIONS = 1000
+    time_taken1 = 0
+    time_taken2 = 0
+    
+    for number in num_of_nodes:
+        for i in tqdm(range(NUM_OF_ITERATIONS)):
+            G = gnp_random_connected_graph(number, completeness, True, False)
+            edges = [((u, v), G.get_edge_data(u, v)['weight']) for u, v in G.edges()]
+
+            graph = Graph(
+                number,
+                edges
+            )
+            start = time.time()
+            bellman_ford(graph)
+            end = time.time()
+
+            start1 = time.time()
+            bellman_ford_predecessor_and_distance(G, 0)
+            end1 = time.time()
+
+            time_taken1 += end - start
+            time_taken2 += end1 - start1
+        time_taken_implementation.append((time_taken1)/NUM_OF_ITERATIONS)
+        time_taken_built_in.append((time_taken2)/NUM_OF_ITERATIONS)
+
+    print(time_taken_built_in)
+    print(time_taken_implementation)
+
+    sub = plt.subplot()
+    sub.plot(num_of_nodes, time_taken_built_in, label = "Built-in")
+    sub.plot(num_of_nodes, time_taken_implementation, label = "Implemented")
+    plt.ylim(0, 15)
+    plt.legend()
+    plt.show()
 
