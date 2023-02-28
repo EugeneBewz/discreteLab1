@@ -176,3 +176,46 @@ if __name__ == "__main__":
 
     print("Our algorithm:", result)
     print("Difference: ", result - pre_result)
+
+    #* Check time and generate graph for our algorithm AND built-in ============================================================
+    print('Analyzing Algorithms...')
+    completeness = 0.4
+    num_of_nodes = [5, 10, 20, 50, 100]
+    time_taken_built_in = []
+    time_taken_implementation = []
+    NUM_OF_ITERATIONS = 1000
+    time_taken1 = 0
+    time_taken2 = 0
+    
+    for number in num_of_nodes:
+        for i in tqdm(range(NUM_OF_ITERATIONS)):
+            G = gnp_random_connected_graph(number, completeness, False, False)
+            edges = [((u, v), G.get_edge_data(u, v)['weight']) for u, v in G.edges()]
+
+            graph_nodes = number
+            graph_edges = [x for x in G.edges()]
+            graph_edges_weight = [
+                ((u, v), G.get_edge_data(u, v)["weight"]) for u, v in G.edges()
+            ]
+            sorted_edges_weight = sorted(graph_edges_weight, key=lambda x: x[1])
+
+            graph_ = Graph(graph_nodes, graph_edges, graph_edges_weight, sorted_edges_weight)
+            start = time.time()
+            kruskal(graph_)
+            end = time.time()
+
+            start1 = time.time()
+            tree.minimum_spanning_tree(G, algorithm="kruskal")
+            end1 = time.time()
+
+            time_taken1 += end - start
+            time_taken2 += end1 - start1
+        time_taken_implementation.append((time_taken1)/NUM_OF_ITERATIONS)
+        time_taken_built_in.append((time_taken2)/NUM_OF_ITERATIONS)
+
+    sub = plt.subplot()
+    sub.plot(num_of_nodes, time_taken_built_in, label = "Built-in")
+    sub.plot(num_of_nodes, time_taken_implementation, label = "Implemented")
+    plt.ylim(0, 0.5)
+    plt.legend()
+    plt.show()
