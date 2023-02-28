@@ -29,6 +29,8 @@ create a cycle - so, we have to abandon this particular edge and move on.
 
 The algorithm return a list of edges, which make an MST. It may differ from the built-in algorithm, but if you draw a
 graph based on final edges - you will get a required MST.
+### The graph of time comparison between implemented and built-in algorithm.
+![Here is the illustration](graph_kruskal.jpg)
 
 ### Prim's algorithm (Held by: Khrystyna Mysak)
 Prim’s algorithm was divided into three functions for decomposition and better understanding. 
