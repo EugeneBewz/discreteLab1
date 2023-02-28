@@ -31,6 +31,7 @@ The algorithm return a list of edges, which make an MST. It may differ from the 
 graph based on final edges - you will get a required MST.
 ### The graph of time comparison between implemented and built-in algorithm.
 ![Here is the illustration](graph_kruskal.jpg)
+![Here is the illustration](KruskalPrim2.png)
 
 ### Prim's algorithm (Held by: Khrystyna Mysak)
 Prim’s algorithm was divided into three functions for decomposition and better understanding. 
@@ -43,6 +44,8 @@ we get the edge with minimum weight available to us and add it to the MST list. 
 weight to mark them as already visited. The cycle repeats up till we have all the nodes in visited_nodes.
 ### The graph of time comparison between implemented and built-in algorithm.
 ![Here is the illustration](graph_prim.jpg)
+### The comparison of Kruskal and Prim algorithms
+![Here is the illustration](KruskalPrim2.png)
 
 
 ## Task #2
@@ -62,6 +65,9 @@ Floyd-Warshall's algorithm is used to determine the shortest path between any tw
 algorithm uses matrix of weights, and each iteration tries paths through every node and replaces each matrix cell, if new
 path is shorter than the previous one. Also, the algorythm can detect negative cycle: if there is a negative number in the
 main diagonal, then there is a negative cycle in a graph.
+### The graph of time comparison between implemented and built-in algorithm.
+![Here is the illustration](graph_floyd.jpg)
+![Here is the illustration](BellmanFord.png)
 
 ## Task #3
 ### Decision tree (Under maintenance)
