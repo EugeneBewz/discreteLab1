@@ -82,7 +82,7 @@ def gnp_random_connected_graph(num_of_nodes: int,
 
 
 #* Kruskal's algorithm for random undirected graphs ====================================================================
-def kruskal(graph: object) -> List[Tuple[int]]:
+def kruskal(graph: Graph) -> List[Tuple[int]]:
     """
     Here we tried to make Kruskal's algorithm for random
     undirected weighted graphs, where we build a minimum spanning tree (MST)
@@ -104,14 +104,14 @@ def kruskal(graph: object) -> List[Tuple[int]]:
 
 
 #* Prim's algorithm ====================================================================================================
-def cost(graph: object, edge):
+def cost(graph: Graph, edge):
     """
     Function returns the the weight of an edge.
     """
     return graph.edges_weight[edge]
 
 
-def min_prims_edge(graph: object, visited_nodes) -> tuple:
+def min_prims_edge(graph: Graph, visited_nodes) -> tuple:
     """
     Function looks for valid incident edges to each node in visited nodes,
     and then returns the minimum edge.
@@ -131,13 +131,13 @@ def min_prims_edge(graph: object, visited_nodes) -> tuple:
     return min_edge
 
 
-def prim(graph: object) -> str:
+def prim(graph: Graph) -> str:
     """
     Here we tried to make Prim's algorithm a.k.a Prim-Jarník's algorithm
     for random undirected weighted graphs, where we build a minimum spanning tree (MST)
     for given graphs.
 
-    :param graph: class object with a bunch of useful things.
+    :param graph: class Graph with a bunch of useful things.
     :return: text with minimum path weight and list of tuples, where each tuple represents an edge presented
     in graph frame.
     """
