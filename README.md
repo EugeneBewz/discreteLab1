@@ -29,6 +29,25 @@ create a cycle - so, we have to abandon this particular edge and move on.
 
 The algorithm return a list of edges, which make an MST. It may differ from the built-in algorithm, but if you draw a
 graph based on final edges - you will get a required MST.
+
+### Prim's algorithm (Held by: Khrystyna Mysak)
+Prim’s algorithm was divided into three functions for decomposition and better understanding. 
+
+ 1. def cost(graph: object, edge) — gets the weight of the desired edge
+ 2. def min_prims_edge(graph: object, visited_nodes) — looks for valid incident edges to each node in already visited nodes,
+and then compares the weight of those edges to return the minimum edge.
+ 3. def prim(graph: object) — the main function, which receives a graph object. With the help of min_prims_edge function, 
+we get the edge with minimum weight available to us and add it to the MST list. Also, we add the vertices of the minimum
+weight to mark them as already visited. The cycle repeats up till we have all the nodes in visited_nodes.
+### The graph of time comparison between implemented and built-in algorithm.
+![Here is the illustration](graph_prim.jpg)
+### Kruskal's algorithm (Held by: Yevhenii Bevz)
+Kruskal's algorithm sorts edges in ascending order and takes edges one by one. At the same time we keep an eye on set of
+used nodes, which helps us to check whether we create a cycle or not. If edge's both nodes are in current set, then we
+create a cycle - so, we have to abandon this particular edge and move on.
+
+The algorithm return a list of edges, which make an MST. It may differ from the built-in algorithm, but if you draw a
+graph based on final edges - you will get a required MST.
 ### The graph of time comparison between implemented and built-in algorithm.
 ![Here is the illustration](graph_kruskal.jpg)
 
@@ -59,8 +78,8 @@ of all edges in order to find shortest distances from source vertex (starting_no
 
 ### Floyd-Warshall's algorithm (Held by: Yevhenii Bevz)
 Floyd-Warshall's algorithm is used to determine the shortest path between any two nodes in a graph. For clearance, the
-algorithm uses a matrix of weights, and each iteration tries paths through every node and replaces each matrix cell, if new
-path is shorter than the previous one. Also, the algorithm can detect negative cycle: if there is a negative number in the
+algorithm uses matrix of weights, and each iteration tries paths through every node and replaces each matrix cell, if new
+path is shorter than the previous one. Also, the algorythm can detect negative cycle: if there is a negative number in the
 main diagonal, then there is a negative cycle in a graph.
 
 ## Task #3

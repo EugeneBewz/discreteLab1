@@ -23,7 +23,7 @@ from tqdm import tqdm
 
 
 #* Making a graph class to keep all useful things in it ================================================================
-class Graph(object): # <- General graph containing every single node and edge
+class Graph(): # <- General graph containing every single node and edge
     def __init__(self, nodes, edges):
         self.set_of_nodes = {x for x in range(nodes)}
         self.edges = edges
@@ -41,7 +41,7 @@ class Graph(object): # <- General graph containing every single node and edge
 
 #* Random graph generation =============================================================================================
 def gnp_random_connected_graph(num_of_nodes: int,
-                               completeness: int,
+                               completeness: float,
                                directed: bool = False,
                                draw: bool = False):
 
@@ -87,7 +87,7 @@ def gnp_random_connected_graph(num_of_nodes: int,
 
 
 #* Bellman-Ford's algorithm for random directed graphs =================================================================
-def bellman_ford(graph: object, starting_node: int = 0) -> list or str:
+def bellman_ford(graph: Graph, starting_node: int = 0) -> list or str:
     """
     Here we made our own implementation of Bellman-Ford algorithm
     for directed weighted graphs. The function also detects negative weight cycles.
@@ -127,7 +127,7 @@ def built_in_bellman_ford():
 
 
 #* Floyd-Warshall's algorithm for random directed graphs ===============================================================
-def floyd_warshall(graph: object) -> List[list] or str:
+def floyd_warshall(graph: Graph) -> List[list] or str:
     """
     Here we tried to make our own interpretation of Floyd-Warshall
     algorythm for weighted directed graphs. The algorythm uses
