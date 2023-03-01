@@ -23,7 +23,7 @@ from tqdm import tqdm
 
 
 #* Making a graph class to keep all useful things in it ================================================================
-class Graph(): # <- General graph containing every single node and edge
+class Graph: # <- General graph containing every single node and edge
     def __init__(self, nodes, edges):
         self.set_of_nodes = {x for x in range(nodes)}
         self.edges = edges
